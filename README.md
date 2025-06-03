@@ -2,7 +2,35 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## Project Structure
+
+```
+mini-product-app/
+├── app/                  # Main application screens and navigation
+│   ├── cart-detail.tsx   # Cart detail screen
+│   ├── _layout.tsx       # Root layout configuration
+│   └── tabs/            # Tab-based navigation screens
+├── assets/              # Static assets
+│   ├── fonts/          # Custom fonts
+│   └── images/         # Image assets
+├── components/          # Reusable UI components
+│   ├── product/        # Product-related components
+│   ├── ui/             # Common UI components
+│   ├── HapticTab.tsx   # Haptic feedback tab component
+│   ├── ThemedText.tsx  # Themed text component
+│   └── ThemedView.tsx  # Themed view component
+├── constants/          # Application constants
+│   ├── Colors.ts       # Color definitions
+│   └── TabBar.ts       # Tab bar configuration
+├── hooks/              # Custom React hooks
+│   ├── useThemeColor.ts        # Theme color hook
+│   ├── useColorScheme.web.ts   # Web color scheme hook
+│   └── useColorScheme.ts       # Native color scheme hook
+└── stores/             # State management
+    └── useProductsStore.tsx    # Products state store
+```
+
+## Get started - How to run the app
 
 1. Install dependencies
 
@@ -25,16 +53,6 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
 ## Learn more
 
 To learn more about developing your project with Expo, look at the following resources:
@@ -42,9 +60,37 @@ To learn more about developing your project with Expo, look at the following res
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
+## 📝 Future Enhancements
 
-Join our community of developers creating universal apps.
+### High Priority
+- [ ] **App Branding**
+  - Update App Icon with custom design
+  - Create splash screen
+  - Add app store screenshots
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Deployment & CI/CD
+- [ ] **Fastlane Integration**
+  - Set up Fastlane for iOS deployment
+  - Configure Fastlane for Android deployment
+  - Automate build and release process
+
+- [ ] **CI/CD Pipeline**
+  - Set up GitHub Actions workflow
+  - Configure automated testing
+  - Implement automated deployment
+  - Add version management
+
+### Medium Priority
+- [ ] **Performance Optimization**
+  - Implement image caching
+  - Optimize bundle size
+  - Add performance monitoring
+
+- [ ] **Testing**
+  - Implement E2E testing
+  - Set up test coverage reporting
+
+### Low Priority
+- [ ] **User Experience**
+  - Add pull-to-refresh
+  - Implement skeleton loading
