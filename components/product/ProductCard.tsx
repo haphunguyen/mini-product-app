@@ -8,7 +8,7 @@ import { Colors } from '@/constants/Colors';
 import { Product } from '@/stores/useProductsStore';
 import { Rating } from '@kolking/react-native-rating';
 
-const ProductItem: React.FC<{ item: Product, index: number , onPress: () => void}> = ({ item, onPress }) => {
+const ProductCard: React.FC<{ item: Product, index: number , onPress: () => void}> = ({ item, onPress }) => {
     return (
         <Pressable style={styles.container} onPress={onPress}>
             <Image
@@ -26,7 +26,7 @@ const ProductItem: React.FC<{ item: Product, index: number , onPress: () => void
         </Pressable>
     )
 }
-export default memo(ProductItem)
+export default memo(ProductCard)
 const styles = StyleSheet.create({
     container: {
         flex: 1,

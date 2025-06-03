@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Image, Pressable, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 
 import CartHeader from '@/components/product/CartHeader';
@@ -6,15 +6,22 @@ import Loading from '@/components/product/Loading';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Colors } from '@/constants/Colors';
+import { useThemeColor } from '@/hooks/useThemeColor';
 import useProductsStore, { Product } from '@/stores/useProductsStore';
 import { Rating } from '@kolking/react-native-rating';
 import { Stack, useLocalSearchParams } from 'expo-router';
 
 export default function CartDetail() {
     const params = useLocalSearchParams();
-    const { products } = useProductsStore()
+    const backgroundColor = useThemeColor('background')
+    const tintColor = useThemeColor('tint')
+    const { products, addProductToCart } = useProductsStore()
     const [product, setProduct] = useState<Product>()
-    const [count, setCount] = useState(0)
+
+    const handleAddProductToCart = useCallback(() => {
+        if (product)
+            addProductToCart(product)
+    }, [addProductToCart, product])
 
     useEffect(() => {
         if (params?.id) {
@@ -54,13 +61,11 @@ export default function CartDetail() {
                         </ThemedView>
                     </ThemedView>
                 </ScrollView>
-                <Pressable style={styles.buttonAddToCard} onPress={() => setCount(count + 1)}>
-                    <ThemedText style={{ color: Colors.light.background }} type='defaultSemiBold'>Add to Card</ThemedText>
+                <Pressable style={[styles.buttonAddToCard, {backgroundColor: tintColor}]} onPress={handleAddProductToCart}>
+                    <ThemedText style={{ color: backgroundColor }} type='defaultSemiBold'>Add to Card</ThemedText>
                 </Pressable>
                 <SafeAreaView />
             </ThemedView>}
-
-
         </>
     )
 }
@@ -86,7 +91,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonAddToCard: {
-        backgroundColor: Colors.light.tint,
         padding: 12,
         marginHorizontal: 16,
         borderRadius: 8,

@@ -3,7 +3,7 @@ import { Alert, FlatList, ScrollView, StyleSheet } from 'react-native';
 
 import CategoryFilterButton from '@/components/product/CategoryFilterButton';
 import Loading from '@/components/product/Loading';
-import ProductItem from '@/components/product/ProductItem';
+import ProductCard from '@/components/product/ProductCard';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { TabBarHeight } from '@/constants/TabBar';
@@ -57,7 +57,7 @@ export default function ProductsScreen() {
 
   const renderItem = useCallback(({ item, index }: { item: Product, index: number }) => {
     return (
-      <ProductItem
+      <ProductCard
         item={item}
         index={index}
         key={item.id}

@@ -10,9 +10,9 @@ import { TabBarHeight } from '@/constants/TabBar';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export default function TabLayout() {
- const tintColor = useThemeColor('tint')
- const backgroundColor = useThemeColor('background')
- const textColor = useThemeColor('text')
+  const tintColor = useThemeColor('tint')
+  const backgroundColor = useThemeColor('background')
+  const textColor = useThemeColor('text')
 
   return (
     <Tabs
@@ -31,7 +31,6 @@ export default function TabLayout() {
             height: TabBarHeight,
           },
         }),
-        headerRight: () =>(<CartHeader/>)
       }}>
       <Tabs.Screen
         name="index"
@@ -46,6 +45,7 @@ export default function TabLayout() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          headerRight: () => (<CartHeader />),
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="storefront" color={color} />,
         }}
       />
