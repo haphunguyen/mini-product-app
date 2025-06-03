@@ -17,7 +17,7 @@ const CartHeader: React.FC<{ style?: StyleProp<ViewStyle> }> = ({ style }) => {
     const animatedValue = useRef(new Animated.Value(0)).current
 
     const handlePressCart = useCallback(() => {
-        if(canGoBack()) back()
+        if (canGoBack()) back()
         navigate('/cart')
     }, [back, canGoBack, navigate])
 
@@ -37,13 +37,14 @@ const CartHeader: React.FC<{ style?: StyleProp<ViewStyle> }> = ({ style }) => {
     return (
         <Pressable onPress={handlePressCart}>
             <ThemedView style={[styles.container, style]}>
-                <IconSymbol size={30} name="cart" color={tintColor} />
-                {totalQuantity > 0 &&
-                    <Animated.View style={[styles.countContainer, { transform: [{ scale: scaleItem }] }]}>
+                {totalQuantity > 0 ?
+                    <Animated.View style={{ transform: [{ scale: scaleItem }] }}>
                         <ThemedView style={[styles.countBackground, { backgroundColor: tintColor }]}>
                             <ThemedText style={{ color: backgroundColor }} type='small'>{totalQuantity}</ThemedText>
                         </ThemedView>
-                    </Animated.View>}
+                    </Animated.View> :
+                    <IconSymbol size={30} name="cart" color={tintColor} />
+                }
             </ThemedView>
         </Pressable>
     )
@@ -53,11 +54,7 @@ const styles = StyleSheet.create({
     container: {
         marginRight: 16,
     },
-    countContainer: {
-        position: 'absolute',
-        right: -10,
-        top: -4,
-    },
+
     countBackground: {
         width: 20,
         aspectRatio: 1,

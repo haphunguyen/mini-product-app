@@ -1,4 +1,4 @@
-import { Alert, FlatList, ScrollView, StyleSheet } from 'react-native';
+import { Alert, FlatList, Platform, ScrollView, StyleSheet } from 'react-native';
 
 
 import CategoryFilterButton from '@/components/product/CategoryFilterButton';
@@ -122,7 +122,9 @@ const styles = StyleSheet.create({
     columnGap: 8,
   },
   products: {
-    marginBottom: TabBarHeight,
+    marginBottom: Platform.select({
+      ios:TabBarHeight
+    }),
   },
   headerContainer: {
     flexDirection: 'column',

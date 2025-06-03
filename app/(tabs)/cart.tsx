@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, Platform, StyleSheet } from 'react-native';
 
 import CartItem from '@/components/product/CartItem';
 import { ThemedText } from '@/components/ThemedText';
@@ -30,6 +30,14 @@ export default function CartScreen() {
     )
   }, [productsByKey])
 
+  const renderEmpty = useCallback(() => {
+    return (
+      <ThemedView>
+        <ThemedText>Nothing in here</ThemedText>
+      </ThemedView>
+    )
+  }, [])
+
 
   return (
     <ThemedView style={styles.container}>
@@ -39,12 +47,13 @@ export default function CartScreen() {
         contentContainerStyle={styles.spacingItem}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}
+        ListEmptyComponent={renderEmpty}
         keyExtractor={item => item.id?.toString()}
       />
-      <ThemedView style={styles.viewTotal}>
+      {totalQuantity > 0 && <ThemedView style={styles.viewTotal}>
         <ThemedText type='defaultSemiBold'>Total item: {totalQuantity}</ThemedText>
         <ThemedText type='defaultSemiBold' style={{ color: colorTint }}>Total price: ${totalPrice}</ThemedText>
-      </ThemedView>
+      </ThemedView>}
     </ThemedView>
   );
 }
@@ -53,7 +62,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 8,
-    marginBottom: TabBarHeight,
+    marginBottom: Platform.select({
+      ios: TabBarHeight
+    }),
   },
   products: {
     paddingTop: 8,

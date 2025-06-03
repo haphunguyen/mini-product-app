@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Image, Pressable, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 
 import CartHeader from '@/components/product/CartHeader';
 import Loading from '@/components/product/Loading';
@@ -15,6 +15,7 @@ export default function CartDetail() {
     const params = useLocalSearchParams();
     const backgroundColor = useThemeColor('background')
     const tintColor = useThemeColor('tint')
+    const textColor = useThemeColor('text')
     const { products, addProductToCart } = useProductsStore()
     const [product, setProduct] = useState<Product>()
 
@@ -40,6 +41,14 @@ export default function CartDetail() {
             <Stack.Screen options={{
                 title: 'Product Detail',
                 headerBackTitle: 'Back',
+                headerStyle: {
+                    backgroundColor: backgroundColor,
+                },
+                headerTintColor: textColor,
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+                headerTitleAlign: 'center',
                 headerRight: () => <CartHeader style={{ marginRight: 0 }} />,
             }} />
             {!product ? <ThemedView style={styles.loadingContainer}>
@@ -61,10 +70,9 @@ export default function CartDetail() {
                         </ThemedView>
                     </ThemedView>
                 </ScrollView>
-                <Pressable style={[styles.buttonAddToCard, {backgroundColor: tintColor}]} onPress={handleAddProductToCart}>
+                <Pressable style={[styles.buttonAddToCard, { backgroundColor: tintColor }]} onPress={handleAddProductToCart}>
                     <ThemedText style={{ color: backgroundColor }} type='defaultSemiBold'>Add to Card</ThemedText>
                 </Pressable>
-                <SafeAreaView />
             </ThemedView>}
         </>
     )
@@ -96,6 +104,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         marginTop: 4,
+        marginBottom: 40,
     },
     loadingContainer: {
         flex: 1,

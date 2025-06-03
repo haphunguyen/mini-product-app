@@ -45,6 +45,7 @@ export default function TabLayout() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          headerTitleAlign:'center',
           headerRight: () => (<CartHeader />),
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="storefront" color={color} />,
         }}
@@ -62,6 +63,7 @@ export default function TabLayout() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          headerTitleAlign:'center',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="cart" color={color} />,
         }}
       />
