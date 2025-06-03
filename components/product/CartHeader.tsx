@@ -8,7 +8,10 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import useProductsStore from '@/stores/useProductsStore';
 import { useRouter } from 'expo-router';
 
-const CartHeader: React.FC<{ style?: StyleProp<ViewStyle> }> = ({ style }) => {
+const CartHeader: React.FC<{ 
+    style?: StyleProp<ViewStyle>,
+    testID?: string 
+}> = ({ style, testID }) => {
     const { navigate, canGoBack, back } = useRouter()
     const tintColor = useThemeColor('tint')
     const backgroundColor = useThemeColor('background')
@@ -35,15 +38,15 @@ const CartHeader: React.FC<{ style?: StyleProp<ViewStyle> }> = ({ style }) => {
     });
 
     return (
-        <Pressable onPress={handlePressCart}>
-            <ThemedView style={[styles.container, style]}>
+        <Pressable testID={testID} onPress={handlePressCart}>
+            <ThemedView testID={`${testID}-container`} style={[styles.container, style]}>
                 {totalQuantity > 0 ?
-                    <Animated.View style={{ transform: [{ scale: scaleItem }] }}>
-                        <ThemedView style={[styles.countBackground, { backgroundColor: tintColor }]}>
-                            <ThemedText style={{ color: backgroundColor }} type='small'>{totalQuantity}</ThemedText>
+                    <Animated.View testID={`${testID}-quantity-container`} style={{ transform: [{ scale: scaleItem }] }}>
+                        <ThemedView testID={`${testID}-quantity-background`} style={[styles.countBackground, { backgroundColor: tintColor }]}>
+                            <ThemedText testID={`${testID}-quantity-text`} style={{ color: backgroundColor }} type='small'>{totalQuantity}</ThemedText>
                         </ThemedView>
                     </Animated.View> :
-                    <IconSymbol size={30} name="cart" color={tintColor} />
+                    <IconSymbol testID={`${testID}-cart-icon`} size={30} name="cart" color={tintColor} />
                 }
             </ThemedView>
         </Pressable>
@@ -54,7 +57,6 @@ const styles = StyleSheet.create({
     container: {
         marginRight: 16,
     },
-
     countBackground: {
         width: 20,
         aspectRatio: 1,

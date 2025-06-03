@@ -3,7 +3,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import React, { memo, useEffect, useRef } from 'react';
 import { Animated, StyleSheet } from 'react-native';
 
-const Loading: React.FC = () => {
+const Loading: React.FC<{ testID?: string }> = ({ testID }) => {
     const rotationValue = useRef(new Animated.Value(0)).current;
     const tintColor = useThemeColor('tint')
 
@@ -23,8 +23,8 @@ const Loading: React.FC = () => {
     });
 
     return (
-        <Animated.View style={{ transform: [{ rotate: interpolatedRotation }] }}>
-            <ThemedView style={[styles.container, { borderColor: tintColor }]} />
+        <Animated.View testID={testID} style={{ transform: [{ rotate: interpolatedRotation }] }}>
+            <ThemedView testID={`${testID}-container`} style={[styles.container, { borderColor: tintColor }]} />
         </Animated.View>
     )
 }

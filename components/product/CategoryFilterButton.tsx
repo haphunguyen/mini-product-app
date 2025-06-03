@@ -5,11 +5,16 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Colors } from '@/constants/Colors';
 
-const CategoryFilterButton: React.FC<{ label: string, onPress: () => void, selected: boolean }> = ({ label, onPress, selected }) => {
+const CategoryFilterButton: React.FC<{ 
+    label: string, 
+    onPress: () => void, 
+    selected: boolean,
+    testID?: string 
+}> = ({ label, onPress, selected, testID }) => {
     return (
-        <Pressable onPress={onPress}>
-            <ThemedView style={[styles.container, selected && { backgroundColor: Colors.light.tabIconDefault }]}>
-                <ThemedText style={{ color: selected ? Colors.light.background : Colors.light.text }}>{label}</ThemedText>
+        <Pressable testID={testID} onPress={onPress}>
+            <ThemedView testID={`${testID}-container`} style={[styles.container, selected && { backgroundColor: Colors.light.tabIconDefault }]}>
+                <ThemedText testID={`${testID}-label`} style={{ color: selected ? Colors.light.background : Colors.light.text }}>{label}</ThemedText>
             </ThemedView>
         </Pressable>
     )

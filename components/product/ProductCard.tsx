@@ -1,26 +1,26 @@
 import React, { memo } from 'react';
 import { Image, Pressable, StyleSheet } from 'react-native';
 
-
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Colors } from '@/constants/Colors';
 import { Product } from '@/stores/useProductsStore';
 import { Rating } from '@kolking/react-native-rating';
 
-const ProductCard: React.FC<{ item: Product, index: number , onPress: () => void}> = ({ item, onPress }) => {
+const ProductCard: React.FC<{ item: Product, index: number , onPress: () => void, testID?: string}> = ({ item, onPress, testID }) => {
     return (
-        <Pressable style={styles.container} onPress={onPress}>
+        <Pressable testID={`${testID}`} style={styles.container} onPress={onPress}>
             <Image
+                testID={`${testID}-image`}
                 source={{ uri: item.image }}
                 style={styles.image}
                 resizeMode={'contain'} />
             <ThemedView style={styles.infoContainer}>
-                <ThemedText style={styles.price} type='subtitle'>${item.price}</ThemedText>
-                <ThemedText style={{ flex: 1 }} type='defaultSemiBold' numberOfLines={2}>{item.title}</ThemedText>
+                <ThemedText testID={`${testID}-price`} style={styles.price} type='subtitle'>${item.price}</ThemedText>
+                <ThemedText testID={`${testID}-title`} style={{ flex: 1 }} type='defaultSemiBold' numberOfLines={2}>{item.title}</ThemedText>
                 <ThemedView style={styles.ratingContainer}>
-                    <Rating variant={'stars'} size={16} rating={item.rating.rate} />
-                    <ThemedText style={{ color: Colors.light.tabIconDefault }}>({item.rating.rate})</ThemedText>
+                    <Rating testID={`${testID}-rating`} variant={'stars'} size={16} rating={item.rating.rate} />
+                    <ThemedText testID={`${testID}-rating-value`} style={{ color: Colors.light.tabIconDefault }}>({item.rating.rate})</ThemedText>
                 </ThemedView>
             </ThemedView>
         </Pressable>

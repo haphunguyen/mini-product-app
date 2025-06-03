@@ -4,7 +4,7 @@ import { Image, Pressable, StyleSheet } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import useProductsStore, { Product } from '@/stores/useProductsStore';
-const CartItem: React.FC<{ product: Product, quantity: number }> = ({ product, quantity }) => {
+const CartItem: React.FC<{ product: Product, quantity: number, testID?: string }> = ({ product, quantity, testID }) => {
     const { updateQuantityProductSelected } = useProductsStore()
 
     const handleUpdateQuantity = useCallback((type: 'increase' | 'decrease') => {
@@ -21,25 +21,26 @@ const CartItem: React.FC<{ product: Product, quantity: number }> = ({ product, q
     }, [product.id, quantity, updateQuantityProductSelected])
 
     return (
-        <ThemedView style={styles.container}>
+        <ThemedView testID={`${testID}`} style={styles.container}>
             <Image
+                testID={`${testID}-image`}
                 source={{ uri: product.image }}
                 style={styles.image}
                 resizeMode={'contain'} />
             <ThemedView style={{ flex: 1, justifyContent: 'space-around' }}>
-                <ThemedText type={'defaultSemiBold'} numberOfLines={1}>{product.title}</ThemedText>
+                <ThemedText testID={`${testID}-title`} type={'defaultSemiBold'} numberOfLines={1}>{product.title}</ThemedText>
                 <ThemedView style={styles.priceContainer}>
-                    <ThemedText numberOfLines={1}>${product.price}</ThemedText>
+                    <ThemedText testID={`${testID}-price`} numberOfLines={1}>${product.price}</ThemedText>
                     <ThemedView style={styles.quantityContainer}>
-                        <Pressable onPress={() => handleUpdateQuantity('decrease')}>
+                        <Pressable testID={`${testID}-decrease`} onPress={() => handleUpdateQuantity('decrease')}>
                             <ThemedView style={styles.quantityBox}>
                                 <ThemedText >-</ThemedText>
                             </ThemedView>
                         </Pressable>
                         <ThemedView style={styles.quantityBox}>
-                            <ThemedText type={'small'}>{quantity}</ThemedText>
+                            <ThemedText testID={`${testID}-quantity`} type={'small'}>{quantity}</ThemedText>
                         </ThemedView>
-                        <Pressable onPress={() => handleUpdateQuantity('increase')}>
+                        <Pressable testID={`${testID}-increase`} onPress={() => handleUpdateQuantity('increase')}>
                             <ThemedView style={styles.quantityBox}>
                                 <ThemedText >+</ThemedText>
                             </ThemedView>
