@@ -8,6 +8,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { TabBarHeight } from '@/constants/TabBar';
 import useProductsStore, { Product } from '@/stores/useProductsStore';
+import * as Device from 'expo-device';
 import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -16,6 +17,7 @@ export default function ProductsScreen() {
   const { navigate } = useRouter()
   const [categoryFilter, setCategoryFilter] = useState<string>()
   const [loading, setLoading] = useState(false)
+  const isTablet = Device.deviceType === Device.DeviceType.TABLET
 
   const categories = useMemo(() => {
     const setCategories = new Set<string>()
@@ -97,7 +99,7 @@ export default function ProductsScreen() {
         contentContainerStyle={styles.spacingItem}
         columnWrapperStyle={styles.spacingItem}
         ListHeaderComponent={renderHeader}
-        numColumns={2}
+        numColumns={isTablet ? 4 : 2}
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
         renderItem={renderItem}
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
   },
   products: {
     marginBottom: Platform.select({
-      ios:TabBarHeight
+      ios: TabBarHeight
     }),
   },
   headerContainer: {
