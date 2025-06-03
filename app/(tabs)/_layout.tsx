@@ -1,22 +1,23 @@
 import { Tabs } from 'expo-router';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
+import CartHeader from '@/components/product/CartHeader';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
 import { TabBarHeight } from '@/constants/TabBar';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const colors = useMemo(() => Colors[colorScheme ?? 'light'], [colorScheme])
+ const tintColor = useThemeColor('tint')
+ const backgroundColor = useThemeColor('background')
+ const textColor = useThemeColor('text')
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors.tint,
+        tabBarActiveTintColor: tintColor,
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
@@ -30,6 +31,7 @@ export default function TabLayout() {
             height: TabBarHeight,
           },
         }),
+        headerRight: () =>(<CartHeader/>)
       }}>
       <Tabs.Screen
         name="index"
@@ -37,10 +39,10 @@ export default function TabLayout() {
           title: 'Products',
           headerShown: true,
           headerStyle: {
-            backgroundColor: colors.background,
+            backgroundColor: backgroundColor,
             borderBottomWidth: 1,
           },
-          headerTintColor: colors.text,
+          headerTintColor: textColor,
           headerTitleStyle: {
             fontWeight: 'bold',
           },
@@ -53,10 +55,10 @@ export default function TabLayout() {
           title: 'Cart',
           headerShown: true,
           headerStyle: {
-            backgroundColor: colors.background,
+            backgroundColor: backgroundColor,
             borderBottomWidth: 1,
           },
-          headerTintColor: colors.text,
+          headerTintColor: textColor,
           headerTitleStyle: {
             fontWeight: 'bold',
           },

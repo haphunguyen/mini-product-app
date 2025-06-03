@@ -51,5 +51,5 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
         gap: 4,
-    }
+    },
 })

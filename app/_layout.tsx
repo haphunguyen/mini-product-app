@@ -22,7 +22,7 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
-        <Stack.Screen name="card-detail" options={{headerShown: false}} />
+        <Stack.Screen name="card-detail" />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
