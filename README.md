@@ -44,6 +44,14 @@ mini-product-app/
    npx expo start
    ```
 
+3. Run on Real Device:
+   - Download the Expo Go app from:
+     - [App Store](https://apps.apple.com/app/expo-go/id982107779) for iOS
+     - [Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent) for Android
+   - Scan the QR code shown in your terminal with:
+     - iOS: Use your phone's camera
+     - Android: Use the Expo Go app's QR scanner
+
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
@@ -52,6 +60,39 @@ In the output, you'll find options to open the app in a
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## Debugging
+
+To debug your application:
+
+1. Open JavaScript Debugger:
+   - Press `Command + Control + Z` in the simulator
+   - Select "Open JS Debugger" from the debug modal
+   - React Native DevTools will open in your browser
+
+2. For API debugging:
+   - In React Native DevTools, navigate to the "Network" tab
+   - Monitor and debug your API calls here
+
+## How to Use the App
+
+### Adding Items to Cart
+
+1. Browse Products:
+   - Click on any product item to view its details
+   - The app will navigate to the product detail screen
+
+2. Add to Cart:
+   - Click the "Add to Cart" button on the product detail screen
+   - The item will be added to your shopping cart
+
+3. View Cart:
+   - Option 1: Click the quantity indicator in the Header
+   - Option 2: Navigate to the Cart tab
+   - The Cart screen will display:
+     - All items in your cart
+     - Quantity of each item
+     - Summary of total price
 
 ## Learn more
 
