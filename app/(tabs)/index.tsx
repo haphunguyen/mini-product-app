@@ -2,6 +2,7 @@ import { Alert, FlatList, ScrollView, StyleSheet } from 'react-native';
 
 
 import CategoryFilterButton from '@/components/product/CategoryFilterButton';
+import Loading from '@/components/product/Loading';
 import ProductItem from '@/components/product/ProductItem';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -14,6 +15,7 @@ export default function ProductsScreen() {
   const { products, setProducts } = useProductsStore()
   const { navigate } = useRouter()
   const [categoryFilter, setCategoryFilter] = useState<string>()
+  const [loading, setLoading] = useState(false)
 
   const categories = useMemo(() => {
     const setCategories = new Set<string>()
@@ -42,10 +44,13 @@ export default function ProductsScreen() {
   }, [])
 
   useEffect(() => {
+    setLoading(true)
     void getProduct().then((data: Product[]) => {
       if (data.length > 0)
         setProducts(data)
+      setLoading(false)
     }).catch(error => {
+      setLoading(false)
       Alert.alert('Error', error)
     })
   }, [getProduct, setProducts])
@@ -77,6 +82,12 @@ export default function ProductsScreen() {
     )
   }, [categories, categoryFilter])
 
+  if (loading)
+    return (
+      <ThemedView style={styles.loadingContainer}>
+        <Loading />
+      </ThemedView>
+    )
 
   return (
     <ThemedView style={styles.container}>
@@ -100,6 +111,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 8,
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 40,
   },
   spacingItem: {
     rowGap: 12,

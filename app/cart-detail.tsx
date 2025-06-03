@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, Pressable, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 
 import CartHeader from '@/components/product/CartHeader';
+import Loading from '@/components/product/Loading';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme.web';
 import useProductsStore, { Product } from '@/stores/useProductsStore';
 import { Rating } from '@kolking/react-native-rating';
 import { Stack, useLocalSearchParams } from 'expo-router';
@@ -15,18 +15,18 @@ export default function CartDetail() {
     const { products } = useProductsStore()
     const [product, setProduct] = useState<Product>()
     const [count, setCount] = useState(0)
-    const colorScheme = useColorScheme();
-    const colors = useMemo(() => Colors[colorScheme ?? 'light'], [colorScheme])
 
     useEffect(() => {
         if (params?.id) {
             const productSelected = products.find(p => p.id === Number(params?.id))
-            if (productSelected)
-                setProduct(productSelected)
+            const timeOut = setTimeout(() => {
+                if (productSelected)
+                    setProduct(productSelected)
+                clearTimeout(timeOut)
+            }, 300);
+
         }
     }, [params?.id, products])
-
-    if (!product) return <></>
 
     return (
         <>
@@ -35,7 +35,9 @@ export default function CartDetail() {
                 headerBackTitle: 'Back',
                 headerRight: () => <CartHeader style={{ marginRight: 0 }} />,
             }} />
-            <ThemedView style={styles.container}>
+            {!product ? <ThemedView style={styles.loadingContainer}>
+                <Loading />
+            </ThemedView> : <ThemedView style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <ThemedView style={styles.scrollContainer}>
                         <Image
@@ -56,7 +58,9 @@ export default function CartDetail() {
                     <ThemedText style={{ color: Colors.light.background }} type='defaultSemiBold'>Add to Card</ThemedText>
                 </Pressable>
                 <SafeAreaView />
-            </ThemedView>
+            </ThemedView>}
+
+
         </>
     )
 }
@@ -88,5 +92,10 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         alignItems: 'center',
         marginTop: 4,
-    }
+    },
+    loadingContainer: {
+        flex: 1,
+        alignItems: 'center',
+        paddingTop: 40,
+    },
 })
